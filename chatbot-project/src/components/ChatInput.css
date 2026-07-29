@@ -22,3 +22,12 @@
         display:flex;
         margin-bottom:60px;
       }
+
+      .clear-button{
+        border:none;
+        font-size: 15px;
+        margin-left:5px;
+        padding:12px 20px;
+        border-radius: 10px;
+        cursor:pointer;
+      }
