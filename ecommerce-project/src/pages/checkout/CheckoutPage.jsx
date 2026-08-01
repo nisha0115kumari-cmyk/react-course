@@ -26,7 +26,9 @@ export function CheckoutPage({cart}){
     <>
       <title>Checkout</title>
 
-      <CheckoutHeader />
+        <link rel="icon" type="image/png" href="cart-fevicon.png"/>
+
+      <CheckoutHeader cart={cart}/>
 
       <div className="checkout-page">
         <div className="page-title">Review your order</div>

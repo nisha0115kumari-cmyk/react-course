@@ -4,6 +4,8 @@ import axios from 'axios';
 import {HomePage} from './pages/home/HomePage.jsx';
 import { CheckoutPage } from '././pages/checkout/CheckoutPage.jsx';
 import {OrdersPage} from './pages/orders/OrdersPage.jsx';
+import {TrackingPage} from './pages/tracking/TrackingPage.jsx';
+import { NotFoundPage } from './pages/ErrorPage/NotFoundPage.jsx';
 import './App.css'
 
 function App() {
@@ -25,6 +27,10 @@ function App() {
         element={<CheckoutPage cart = {cart} />}/>
       <Route path="orders" 
         element={<OrdersPage cart = {cart}/>}/>
+      <Route path="tracking/:orderId/:productId" 
+        element={<TrackingPage cart = {cart}/>}/>
+      <Route path="*" 
+        element={<NotFoundPage cart = {cart}/>}/>
     </Routes> 
       
   )
