@@ -1,18 +1,23 @@
 import dayjs from 'dayjs';
 import {Fragment} from 'react';
-import {Link,useParams} from 'react-router';
+import {Link} from 'react-router';
 
 export function OrderDetails({order}){
-
-    let {orderId,productId} = useParams();
-
-    console.log(orderId);
 
   return(
 
 <div className="order-details-grid">
   {order.products.map((orderProduct) => {
-    
+      const totalDeliveryTimeMs = orderProduct.estimatedDeliveryTimeMs - order.orderTimeMs;
+
+      const timePassedMs = dayjs().valueOf() - order.orderTimeMs;
+
+      let deliveryPercent = (timePassedMs/totalDeliveryTimeMs)*100;
+
+      if(deliveryPercent > 100){
+        deliveryPercent = 100;
+      }
+
     return (
       <Fragment key={orderProduct.product.id}>
         <div className="product-image-container">
@@ -24,7 +29,10 @@ export function OrderDetails({order}){
             {orderProduct.product.name}
           </div>
           <div className="product-delivery-date">
-            Arriving on: {dayjs(orderProduct.estimatedDeliveryTimeMs).format('MMMM D')}
+            
+            {deliveryPercent >= 100? 'Delivered on' : 'Arriving on'}
+            :
+          {dayjs(orderProduct.estimatedDeliveryTimeMs).format('MMMM D')}
           </div>
           <div className="product-quantity">
             Quantity: {orderProduct.quantity}
@@ -36,7 +44,7 @@ export function OrderDetails({order}){
         </div>
 
         <div className="product-actions">
-          <Link to={`/tracking/${orderId}/${productId}`}>
+          <Link to={`/tracking/${order.id}/${orderProduct.product.id}`}>
             <button className="track-package-button button-secondary">
               Track package
             </button>
